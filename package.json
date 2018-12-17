@@ -1,0 +1,10 @@
+{
+  "name": "easyupload",
+  "version": "0.0.1",
+  "scripts": {
+    "start": "node start.js"
+  },
+  "dependencies": {
+    "formidable": "*"
+  }
+}
