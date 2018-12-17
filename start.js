@@ -6,10 +6,10 @@ http.createServer(function (req, res) {
         var form = new formidable.IncomingForm();
         form.parse(req, function (err, fields, files) {
             var oldpath = files.finput.path;
-            var newpath = '/tmp/' + files.finput.name;
+            var newpath = '/tmp/repo/' + files.finput.name;
             fs.rename(oldpath, newpath, function (err) {
                 if (err) throw err;
-                res.write('File uploaded and moved!');
+                res.write('File uploaded');
                 res.end();
             });
         });
