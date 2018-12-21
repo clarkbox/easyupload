@@ -27,7 +27,7 @@ http.createServer(function (req, res) {
                 fn = 'webstore';
             }
 
-            fs.copyFile(oldpath, '/var/www/repo/'+fn+'latest.tgz.gpg', function(){
+            fs.copyFile(oldpath, '/var/www/repo/'+fn+'-latest.tgz.gpg', function(){
                 moveFile();
             });
 
