@@ -6,26 +6,35 @@ http.createServer(function (req, res) {
 
     var form = new formidable.IncomingForm();
     form.parse(req, function (err, fields, files) {
-
-        var havefile = false;
         if(typeof files.finput !== 'undefined' ){
-            havefile = true;
-        }else{
-            havefile = false;
-        }
 
-        if (havefile) {
-            var oldpath = files.finput.path;
             var newpath = '/var/www/repo/' + files.finput.name;
-            fs.rename(oldpath, newpath, function (err) {
-                if (err) throw err;
-                res.write('File uploaded');
-                res.end();
+            var oldpath = files.finput.path;
+
+            function moveFile(){
+                fs.rename(oldpath, newpath, function (err) {
+                    if (err) console.log('there was an error');
+                    res.write('File uploaded');
+                    res.end();
+                });
+            }
+
+            var fn = 'na';
+
+            if(files.finput.name.indexOf('admin') > -1){
+                fn = 'admin';
+            }else if(files.finput.name.indexOf('webstore') > -1){
+                fn = 'webstore';
+            }
+
+            fs.copyFile(oldpath, '/var/www/repo/'+fn+'latest.tgz.gpg', function(){
+                moveFile();
             });
-        } else {
+
+        }else{
             res.writeHead(200, {'Content-Type': 'text/html'});
             res.write(req.url)
-            res.write('<form action="./incoming" method="post" enctype="multipart/form-data">');
+            res.write('<form action="incoming" method="post" enctype="multipart/form-data">');
             res.write('<input type="file" name="finput"><br>');
             res.write('<input type="submit">');
             res.write('</form>');
