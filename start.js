@@ -15,6 +15,12 @@ var formFileInputName = args.formfileinputname || 'finput';
 http.createServer(function (req, res) {
     var form = new formidable.IncomingForm();
     form.parse(req, function (err, fields, files) {
+        if (err) {
+            console.error('Error parsing form:', err);
+            res.writeHead(400, {'Content-Type': 'text/plain'});
+            res.end('Bad Request');
+            return;
+        }
         if(typeof files[formFileInputName] !== 'undefined' ){
             var newpath = savePath + files[formFileInputName].name;
             var oldpath = files[formFileInputName].path;
