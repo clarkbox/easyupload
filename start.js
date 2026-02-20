@@ -30,7 +30,9 @@ http.createServer(function (req, res) {
             return;
         }
         if(typeof files[formFileInputName] !== 'undefined' ){
-            var newpath = path.join(savePath, files[formFileInputName].name);
+            // Use path.basename to prevent path traversal attacks
+            var safeFilename = path.basename(files[formFileInputName].name);
+            var newpath = path.join(savePath, safeFilename);
             var oldpath = files[formFileInputName].path;
             fs.rename(oldpath, newpath, function (err) {
                 if (err) {
