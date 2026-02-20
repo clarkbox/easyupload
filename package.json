@@ -5,7 +5,7 @@
     "start": "node start.js"
   },
   "dependencies": {
-    "formidable": "*",
+    "formidable": "^1.2.1",
     "minimist": "*"
   }
 }
