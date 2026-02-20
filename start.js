@@ -44,7 +44,6 @@ http.createServer(function (req, res) {
             });
         }else{
             res.writeHead(200, {'Content-Type': 'text/html'});
-            res.write(req.url)
             res.write('<form action="upload" method="post" enctype="multipart/form-data">');
             res.write('<input type="file" name="'+formFileInputName+'"><br>');
             res.write('<input type="submit">');
