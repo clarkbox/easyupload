@@ -30,7 +30,7 @@ http.createServer(function (req, res) {
             res.write('<input type="file" name="'+formFileInputName+'"><br>');
             res.write('<input type="submit">');
             res.write('</form>');
-            return res.end();
+            res.end();
         }
     });
 }).listen( port );
