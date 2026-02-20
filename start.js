@@ -19,7 +19,12 @@ http.createServer(function (req, res) {
             var newpath = savePath + files[formFileInputName].name;
             var oldpath = files[formFileInputName].path;
             fs.rename(oldpath, newpath, function (err) {
-                if (err) console.log('there was an error');
+                if (err) {
+                    console.log('there was an error', err);
+                    res.writeHead(500, {'Content-Type': 'text/plain'});
+                    res.end('Internal Server Error');
+                    return;
+                }
                 res.write('File uploaded');
                 res.end();
             });
